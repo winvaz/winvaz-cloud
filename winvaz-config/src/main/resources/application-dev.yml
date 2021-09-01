@@ -1,0 +1,27 @@
+# winvaz-gateway
+server:
+  port: 9600
+
+spring:
+  application:
+    name: winvaz-config
+  # Git仓库相关信息
+  # Postman测试地址：http://localhost:9600/winvaz/prod/config-label-test
+  cloud:
+    config:
+      server:
+        git:
+          # github有时网络异常，测试使用本地文件系统
+          uri: https://github.com/winvaz/spring_cloud_git_config
+          #          uri: file://${user.home}/Documents/IntelliJWorkspace/spring_cloud_git_config
+          search-paths: config-repo
+          username: winvaz@163.com
+          password: WWW.520.com.cn
+
+# Eureka
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+

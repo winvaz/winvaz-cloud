@@ -1,0 +1,104 @@
+# winvaz-feign
+server:
+  port: 9300
+
+spring:
+  application:
+    name: winvaz-feign
+  # RabbitMQ-参考winvaz-bus模块配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: springCloud
+    password: springCloud
+
+# Eureka
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+
+# Ribbon客户端全局配置
+# Feign 设置远程调用超时请求时间
+#ribbon:
+#  connect-timeout: 60000
+#  read-timeout: 12000
+
+# Hystrix全局超时时间配置
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 5000
+
+# 对某个接口的超时时间配置
+#hystrix:
+#  command:
+#    hello:
+#      execution:
+#        isolation:
+#          trhead:
+#            timeoutInMillseconds: 5000
+
+# 或关闭熔断功能
+
+# Feign 请求压缩
+#feign:
+#  # 或开启(true)关闭(false)Hystrix功能
+#  hystrix:
+#    enabled: true
+#  compression:
+#    request:
+#      enabled: true
+#  以下两行为默认配置
+#      mime-types: text/xml,application/xml,application/json
+#      min-request-size: 2048
+#    response:
+#      enabled: true
+
+# Feign日志配置，开启指定Feign客户端的DEBUG日志
+# 还需定义全局的日志级别，可以在主类中添加Bean
+logging:
+  level:
+    com:
+      icore:
+        winvaz:
+          winvazhelloapi:
+            service:
+              HelloService: debug
+
+# 亦可使用@FeignClient注解中的name或value属性值来设置对应的Ribbon参数
+#WINVAZ-HELLO:
+#  ribbon:
+#    connectTimeout: 500
+#    readTimeout: 2000
+#    okToRetryOnAllOperations: true
+#    maxAutoRetriesNextServer: 2
+#    maxAutoRetries: 1
+
+
+
+
+
+
+#kafka
+#spring:
+#  cloud:
+#    stream:
+#      bindings:
+#        member:
+#          content-type: text/plain
+#          destination: mytopic
+#          producer:
+#            partitionCount: 1
+#      kafka:
+#        binder:
+#          auto-add-partitions: true
+#          auto-create-topics: true
+#          brokers: localhost:9092
+#          min-partition-count: 1
+#          zk-nodes: localhost:2182
+

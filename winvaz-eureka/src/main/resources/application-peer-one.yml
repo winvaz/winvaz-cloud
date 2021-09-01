@@ -1,0 +1,21 @@
+# peer-one与peer-two为扩展Eureka Server为高可用
+# 服务注册中心端口
+server:
+  port: 8762
+# 服务名 ，很重要 ，后期 config 配置中心会以 服务名为标识找对应的 服务
+spring:
+  application:
+    name: winvaz-eureka
+  # 环境配置
+#  profiles:
+#    active: dev
+
+# 需要在/etc/hosts文件中添加对peer-one和peer-two的转换。让配置的host形式的serviceUrl能在本地正确的访问到。
+# 服务注册中心实例的主机名
+eureka:
+  instance:
+       hostname: peer-one
+  client:
+    # serviceUrl指向peer-two
+    service-url:
+      defaultZone: http://peer-two:8763/eureka

@@ -1,0 +1,37 @@
+# YAML可以在一个单个文件中通过使用spring.profiles属性来定义多个不同的环境配置
+#  profiles: dev
+#  server:
+#      port: 8091
+#
+#  profiles: prod
+#  server:
+#      port: 8092
+
+# 自定义参数
+#book:
+#  name: Spring-Cloud-winvaz-demo
+#  author: winvaz
+
+# 参数引用。各个参数之间可以直接通过使用PlaceHolder的方式来引用。
+book:
+  name: SpringCloud
+  author: winvaz
+  desc: ${book.author} is writing ${book.name}
+
+# 使用随机数。参数每次被加载时不是一个固定的值。通过${random}配置来产生随机的int，long，string
+#${random}的配置方式主要有以下几种。
+com:
+  icore:
+    winvaz:
+      winvazhello:
+        blog:
+          # 随机字符串
+          value: ${random.value}
+          # 随机int
+          number: ${random.int}
+          #  随机long
+          bignumber: ${random.long}
+          # 10以内的随机数
+          test1: ${random.int(10)}
+          # 10~20的随机数
+          test2: ${random.int(10, 20)}

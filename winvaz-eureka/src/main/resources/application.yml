@@ -1,0 +1,82 @@
+# 服务注册中心端口
+server:
+  port: 8761
+  # 端口可以使用随机数的形式
+  #  port: ${random.int[10000, 19999]}
+
+  # 应用的上下文路径，服务地址前缀
+#  servlet:
+#    context-path: winvazEureka
+
+# 服务名 ，很重要 ，后期 config 配置中心会以 服务名为标识找对应的 服务
+spring:
+  application:
+    name: winvaz-eureka
+  # 环境配置
+  profiles:
+    active: dev
+
+#  如果项目配置有 server.servlet.context-path 属性，想要被 spring boot admin 监控，就要配置以下属性
+management:
+  server:
+    servlet:
+      context-path: /actuator
+
+# 安全考虑，修改原始路径
+endpoints:
+  info:
+    path: /winvazEurekaInfo
+
+# 配置Eureka服务注册中心的位置。
+# 服务注册中心实例的主机名
+eureka:
+  instance:
+    # 不适用主机名的方式，改为IP地址的形式，需要配置参数
+    # prefer-ip-address设置为true以IP地址注册到服务中心，相互注册使用IP地址，访问注册中心页面DS Replicas模块中有一个实例为localhost
+    #    prefer-ip-address: true
+    # 当同时设置了prefer-ip-address，以ip-address为准
+    #    ip-address: 127.0.0.1
+    #    instance-id: ${eureka.instance.ip-address}:${server.port}
+    # hostname: one
+    hostname: localhost
+
+    # 实例名配置(默认采用主机名)
+    # springcloud中服务的 Instance ID 默认规则${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${server.port}}
+    #    instance-id: ${spring.application.name}:${server.port}
+
+    # 自定义元数据配置
+    #      zone: shanghai
+    #    metadata-map:
+
+    # 端点配置
+    #    status-page-url-path: ${management.server.servlet.context-path}/info
+    #    health-check-url-path:  ${management.server.servlet.context-path}/health
+    #    status-page-url-path: /${endpoints.info.path}
+    #    health-check-url-path: /${endpoints.info.path}
+    # HTTPS需要使用绝对路径
+  #    status-page-url: https://${eureka.instance.hostname}/info
+  #    health-check-url: https://${eureka.instance.hostname}/health
+  #    home-page-url: https://${eureka.instance.hostname}/
+
+
+
+  client:
+    # 是否向服务注册中心注册自己(否)，表示不向注册中心注册自己
+    register-with-eureka: false
+    # 由于注册中心的任务就是维护服务实例，不需要去检索服务
+    fetch-registry: false
+    server:
+      waitTimeInMsWhenSyncEmpty: 0
+      # 当应用上线率过低时，eureka会启动保护机制，默认确定当前服务是开启的，开发 环境中尽量关闭（设置为false）
+      enable-self-preservation: false
+      # 服务注册中心的配置内容，指定服务注册中心的位置
+      # 地址为http://localhost:8761 不要加/eureka，如果不需要登录请不要添加security依赖
+      service-url:
+        defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+      # 高可用
+  # 单机本地调试关闭Eureka Server的自我保护机制
+  server:
+    enable-self-preservation: false
+#      defaultZone: http://two:8762/eureka
+
+

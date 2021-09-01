@@ -1,0 +1,17 @@
+# 测试Config-Server
+# 属性必须配置在bootstrap文件中。
+spring:
+  application:
+    name: winvaz
+  cloud:
+    config:
+#      uri: http://localhost:9600/
+#      profile: dev
+#      label: master
+      # 加入Eureka之后使用以下配置
+      # 用于访问winvaz-config-server功能
+      discovery:
+        enabled: true
+        service-id: winvaz-config
+      # 快速失败响应与重试
+#      fail-fast: true

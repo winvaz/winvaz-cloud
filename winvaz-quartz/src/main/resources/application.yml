@@ -1,0 +1,12 @@
+# 服务端口号
+server:
+  port: 9000
+
+# 服务名称
+spring:
+  application:
+    name: winvaz-quartz
+
+  # 配置文件
+  profiles:
+    active: dev

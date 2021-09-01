@@ -1,0 +1,42 @@
+# 配置一些简单的路由规则设置
+# 所有符合/api-a-url/**规则的访问都将被路由转发到http://localhost:8080/地址上
+#zuul:
+#  routes:
+#    api-a-url:
+#      path: /api-a-url/**
+#      url: //localhost:9300/
+
+# 整合Eureka之后配置服务路由
+zuul:
+  routes:
+    winvaz-hello:
+      path: /api-a/**
+      serviceId: winvaz-hello
+    winvaz-feign:
+      path: /api-b/**
+      serviceId: winvaz-feign
+  # 禁用过滤器zuul.<simpleClassName>.<filterType>.disable=true
+  AccessFilter:
+    pre:
+      disable: true
+  # 忽略表达式zuul.ignored-patterns设置不希望被API网关进行路由的URL
+#  ignored-patterns: /**/winvaz-hello/**
+
+# 另一种更简洁的方式 zuul.routes.<serviceId>=<path>
+#zuul:
+#  routes:
+#    winvaz-hello: /winvaz-hello/**
+#    winvaz-feign: /winvaz-feign/**
+
+# 路径匹配
+# 因基础的路由规则加载算法是通过LinkedHashMap保存的。
+# 而properties配置内容无法保证有序，需使用YMAL文件来配置
+#zuul:
+#  routes:
+#    winvaz-hello:
+#      path: /winvaz-hello/**
+#      serviceId: winvaz-hello
+#    winvaz-hello-ext:
+#      path: /winvaz-hello/ext/**
+#      serviceId: winvaz-hello-ext
+

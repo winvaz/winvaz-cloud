@@ -1,0 +1,12 @@
+server:
+  port: 9700
+
+spring:
+  application:
+    name: winvaz-stream
+
+# eureka:client:serviceUrl:defaultZone属性来指定服务注册中心的地址。
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

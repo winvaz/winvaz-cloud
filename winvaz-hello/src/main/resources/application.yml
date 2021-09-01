@@ -1,0 +1,53 @@
+# 服务端口
+server:
+  port: 8800
+
+# 服务应用名(Spring Cloud中会被注册为服务名)
+spring:
+  application:
+    name: winvaz-hello
+  # 多环境配置。在Spring Boot中，多环境配置的文件名需满足application-{profile}:properties
+  # 至于具体加载哪个配置文件，需要在application:properties文件中通过spring:profiles:active属性来设置。
+  # 其值对应配置文件中的{profiles}值
+  profiles:
+    active: dev
+
+  # 重试机制
+  # 根据如下配置，当访问到故障请求的时候，它会再尝试访问一次当前实例(次数由maxAutoRetries配置)
+  # 如果不行，就换一个实例进行访问，如果还是不行，再换一次实例访问(更换次数由maxAutoRetriesNextServer配置)
+  # 如果依然不行，返回错误信息。
+  # 默认是关闭的
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+# 断路器的超时时间需要大于Ribbon的超时时间，不然不会触发重试
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+#winvaz-hello:
+#  ribbon:
+#    # 请求连接超时时间
+#    connectTimeout: 250
+#    # 请求处理的超时时间
+#    readTimeout: 1000
+#    # 对所有操作请求都进行重试
+#    okToRetryOnAllOperations: true
+#    # 切换实例的重试次数
+#    maxAutoRetriesNextServer: 2
+#    # 对当前实例的重试次数
+#    maxAutoRetries: 1
+
+# eureka:client:serviceUrl:defaultZone属性来指定服务注册中心的地址。
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+      # 多节点注册，多配置用逗号隔开
+  #      defaultZone: http://peer-one:8762/eureka, http://peer-two:8763/eureka
+

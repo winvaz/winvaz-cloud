@@ -1,0 +1,21 @@
+# 服务端口
+server:
+  port: 8800
+
+# 服务应用名(Spring Cloud中会被注册为服务名)
+spring:
+  application:
+    name: winvaz-hello
+  # RabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5672
+    # 新建的用户连接拒绝或IO异常，需要set premission
+    username: springCloud
+    password: springCloud
+
+# eureka:client:serviceUrl:defaultZone属性来指定服务注册中心的地址。
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

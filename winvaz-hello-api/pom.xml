@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>winvaz-cloud</artifactId>
+        <groupId>com.icore.winvaz</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.icore.winvaz</groupId>
+    <artifactId>winvaz-hello-api</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>winvaz-hello-api</name>
+    <packaging>jar</packaging>
+    <description>winvaz-hello-api project for Spring Cloud</description>
+
+    <!--公共模块不需要build-->
+    <!--原因：公共模块只是一个简单的maven项目，没有放置Application入口，不能使用“spring-boot-maven-plugin”进行打包-->
+    <!--解决办法；如果该插件是在每个项目的pom中设置的，删除公共模块中的该插件即可，如果是在SpringCloud父工程下统一设置的插件，则在公共模块中进行排除即可。-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 跳过spring boot打包 -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
